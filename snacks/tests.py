@@ -28,6 +28,7 @@ class SnacksTests(TestCase):
     self.assertEqual(str(self.snack.purchaser), 'test')
     self.assertEqual(self.snack.description, 'This snack is salty')
 
+# Test for ListView
   def test_snack_list_view(self):
     url = reverse('snack_list')
     response = self.client.get(url)
@@ -35,7 +36,8 @@ class SnacksTests(TestCase):
     self.assertContains(response, 'Lays')
     self.assertTemplateUsed(response, 'snack_list.html')
     self.assertTemplateUsed(response, 'base.html')
-  
+
+# Test for DetailView
   def test_snack_detail_view(self):
     url = reverse('snack_detail', args='1')
     response = self.client.get(url)
@@ -43,7 +45,8 @@ class SnacksTests(TestCase):
     self.assertContains(response, 'This snack is salty')
     self.assertTemplateUsed('snack_detail.html')
     self.assertTemplateUsed(response, 'base.html')
-  
+
+# Test for CreateView
   def test_snack_create_view(self):
     response = self.client.post(reverse('snack_create'),
     {
@@ -57,6 +60,7 @@ class SnacksTests(TestCase):
     self.assertContains(response, 'This is not a snack.')
     self.assertTemplateUsed(response, 'snack_detail.html')
 
+# Test for UpdateView
   def test_snack_update_view(self):
     response = self.client.post(reverse('snack_update', args='1'),
     {
@@ -68,6 +72,7 @@ class SnacksTests(TestCase):
 
     self.assertRedirects(response, reverse('snack_detail', args='1'))
 
+# Test for DeleteView
   def test_snack_delete_view(self):
     response = self.client.post(reverse('snack_delete', args='1'))
     self.assertEqual(response.status_code, 200)
